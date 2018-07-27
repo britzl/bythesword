@@ -1,0 +1,163 @@
+name: "level"
+instances {
+  id: "berserker"
+  prototype: "/enemy/berserker.go"
+  position {
+    x: 826.6373
+    y: 1.0180262
+    z: 0.19999999
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "berserker1"
+  prototype: "/enemy/berserker.go"
+  position {
+    x: 1477.1152
+    y: 236.71335
+    z: 0.19999999
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "berserker2"
+  prototype: "/enemy/berserker.go"
+  position {
+    x: 1349.4899
+    y: 241.85953
+    z: 0.19999999
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "level3"
+  prototype: "/level/level3.go"
+  children: "factories"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "factories"
+  prototype: "/level/factories.go"
+  position {
+    x: 2835.0
+    y: 420.0
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "orcbow"
+  prototype: "/enemy/orcbow.go"
+  position {
+    x: 1547.3999
+    y: -170.01038
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "orcbow1"
+  prototype: "/enemy/orcbow.go"
+  position {
+    x: 1634.98
+    y: 242.6746
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "orcwiz"
+  prototype: "/enemy/orcwiz.go"
+  position {
+    x: 2009.5837
+    y: -182.2267
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+collection_instances {
+  id: "warrior"
+  collection: "/player/warrior.collection"
+  position {
+    x: 113.82836
+    y: 1.5029325
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+  instance_properties {
+    id: "warrior"
+    properties {
+      id: "movement"
+      properties {
+        id: "DOUBLE_JUMP_SPEED"
+        value: "400.0"
+        type: PROPERTY_TYPE_NUMBER
+      }
+      properties {
+        id: "WALL_JUMP_SPEED"
+        value: "400.0"
+        type: PROPERTY_TYPE_NUMBER
+      }
+    }
+  }
+}
+scale_along_z: 0

@@ -1,0 +1,810 @@
+name: "level"
+instances {
+  id: "game"
+  prototype: "/game/game.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "level"
+  prototype: "/level/level1.go"
+  children: "bat"
+  children: "bat1"
+  children: "bat2"
+  children: "bat3"
+  children: "bat4"
+  children: "bat5"
+  children: "bat6"
+  children: "bat7"
+  children: "bat8"
+  children: "block"
+  children: "factories"
+  children: "goblin"
+  children: "goblin1"
+  children: "goblin10"
+  children: "goblin11"
+  children: "goblin12"
+  children: "goblin13"
+  children: "goblin14"
+  children: "goblin15"
+  children: "goblin16"
+  children: "goblin17"
+  children: "goblin18"
+  children: "goblin2"
+  children: "goblin3"
+  children: "goblin4"
+  children: "goblin5"
+  children: "goblin6"
+  children: "goblin7"
+  children: "goblin8"
+  children: "goblin9"
+  children: "jelly"
+  children: "jelly1"
+  children: "jelly2"
+  children: "necromancer"
+  children: "necromancer1"
+  children: "necromancer2"
+  children: "necromancer3"
+  children: "necromancer4"
+  children: "necromancer5"
+  children: "necromancer6"
+  children: "necromancer7"
+  children: "necromancer8"
+  children: "necromancer9"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "bat"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 765.5773
+    y: 274.35007
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat1"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 1297.5385
+    y: 467.66095
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat2"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 1381.9753
+    y: 30.232018
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat3"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 1572.1375
+    y: -320.04837
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat4"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 602.31714
+    y: -955.6022
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat5"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 602.31714
+    y: -1015.69226
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat6"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 601.08606
+    y: -1073.6885
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat7"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 602.31714
+    y: -1149.8698
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "bat8"
+  prototype: "/enemy/bat.go"
+  position {
+    x: 602.2299
+    y: -1222.6389
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "block"
+  prototype: "/enemy/block.go"
+  position {
+    x: 382.7997
+    y: 384.40256
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "goblin"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 456.85233
+    y: 153.58505
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin1"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1931.7322
+    y: 169.83421
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin10"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 2065.1523
+    y: -972.9677
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin11"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1997.5231
+    y: -1043.3759
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin12"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1923.6858
+    y: -1112.4166
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin13"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1851.6683
+    y: -1184.3109
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin14"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1718.053
+    y: -1319.6323
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin15"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1783.1545
+    y: -1254.4434
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin16"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1644.1401
+    y: -1396.0073
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin17"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1573.2515
+    y: -1463.1835
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin18"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1501.4323
+    y: -1536.3597
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin2"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 723.34784
+    y: 157.62831
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin3"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 2556.4282
+    y: 22.443504
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin4"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 1553.3492
+    y: -112.93586
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin5"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 646.0438
+    y: -108.867226
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin6"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 2313.171
+    y: -462.88916
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin7"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 2961.359
+    y: -398.79547
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin8"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 2881.126
+    y: -465.9449
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "goblin9"
+  prototype: "/enemy/goblin.go"
+  position {
+    x: 3040.7312
+    y: -329.63715
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "jelly"
+  prototype: "/enemy/jelly.go"
+  position {
+    x: 1085.6735
+    y: 139.07742
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 3.0
+}
+instances {
+  id: "jelly1"
+  prototype: "/enemy/jelly.go"
+  position {
+    x: 3062.3044
+    y: -120.30223
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 3.0
+}
+instances {
+  id: "jelly2"
+  prototype: "/enemy/jelly.go"
+  position {
+    x: 281.1476
+    y: -116.2336
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 3.0
+}
+instances {
+  id: "necromancer"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 875.183
+    y: 440.3912
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer1"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 1635.0638
+    y: 722.0807
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer2"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 2890.3643
+    y: -41.868847
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer3"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 2625.6323
+    y: -47.904125
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer4"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 1060.3143
+    y: -111.98088
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer5"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 3118.3264
+    y: -261.53278
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer6"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 1830.7915
+    y: -467.0538
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer7"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 987.4857
+    y: -458.36224
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer8"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: -174.93922
+    y: -758.29
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "necromancer9"
+  prototype: "/enemy/necromancer.go"
+  position {
+    x: 2129.665
+    y: -873.1115
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+}
+instances {
+  id: "player"
+  prototype: "/player/warrior.go"
+  position {
+    x: 256.93686
+    y: 280.4109
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "movement"
+    properties {
+      id: "DOUBLE_JUMP_SPEED"
+      value: "400.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+    properties {
+      id: "WALL_JUMP_SPEED"
+      value: "400.0"
+      type: PROPERTY_TYPE_NUMBER
+    }
+  }
+  scale: 2.0
+}
+scale_along_z: 0
+embedded_instances {
+  id: "hud"
+  data: "components {\n  id: \"gui\"\n  component: \"/hud/hud.gui\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  position {
+    x: 334.98145
+    y: 465.92874
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+embedded_instances {
+  id: "factories"
+  data: "embedded_components {\n  id: \"jellyfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/enemy/jelly.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"magefactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/mage.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"magicfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/projectile/magic.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"thieffactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/thief.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"warriorfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/warrior.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}

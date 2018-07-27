@@ -1,0 +1,9 @@
+function init(self)
+	local position = go.get_position()
+	local tint = go.get("#sprite", "tint")
+	tint.w = 0.3
+	go.animate("#sprite", "tint", go.PLAYBACK_ONCE_FORWARD, tint, go.EASING_INCIRC, 0.5, 0)
+	go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, position + vmath.vector3(0, 70, 0), go.EASING_OUTCIRC, 0.5, 0, function(self, url, property)
+		go.delete()
+	end)
+end

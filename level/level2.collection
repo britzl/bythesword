@@ -1,0 +1,67 @@
+name: "level"
+instances {
+  id: "level"
+  prototype: "/level/level2.go"
+  children: "factories"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "factories"
+  prototype: "/level/factories.go"
+  position {
+    x: 2835.0
+    y: 420.0
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+collection_instances {
+  id: "warrior"
+  collection: "/player/warrior.collection"
+  position {
+    x: 725.49084
+    y: 140.89949
+    z: 0.5
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 2.0
+  instance_properties {
+    id: "warrior"
+    properties {
+      id: "movement"
+      properties {
+        id: "DOUBLE_JUMP_SPEED"
+        value: "400.0"
+        type: PROPERTY_TYPE_NUMBER
+      }
+      properties {
+        id: "WALL_JUMP_SPEED"
+        value: "400.0"
+        type: PROPERTY_TYPE_NUMBER
+      }
+    }
+  }
+}
+scale_along_z: 0

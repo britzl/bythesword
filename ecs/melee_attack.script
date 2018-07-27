@@ -1,0 +1,36 @@
+go.property("GROUP", hash(""))
+go.property("ANIMATION", hash(""))
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.attacking = false
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == self.GROUP and self.attacking then
+			msg.post(".", messages.HIT, message)
+			self.attacking = false
+		end
+	elseif message_id == messages.ATTACK then
+		if not self.attacking then
+			self.sender = sender
+			msg.post(".", messages.ANIMATE, { id = self.ANIMATION, priority = 10 })
+			msg.post(".", messages.ATTACKING)
+			self.attacking = true
+		end
+	elseif message_id == messages.ANIMATION_DONE then
+		msg.post(".", messages.ATTACK_DONE)
+		msg.post(self.sender, messages.ATTACK_DONE)
+		self.attacking = false
+		self.sender = nil
+	end
+end

@@ -1,0 +1,12 @@
+function init(self)
+	local position = go.get_position()
+	position.y = position.y + 5
+	go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, position, go.EASING_OUTCUBIC, 0.5, 0) 
+
+	local tint_from = vmath.vector4(1, 1, 1, 0)
+	local tint_to = vmath.vector4(1, 1, 1, 1)
+	go.set("#sprite", "tint", tint_from)
+	go.animate("#sprite", "tint", go.PLAYBACK_ONCE_PINGPONG, tint_to, go.EASING_OUTCUBIC, 0.5, 0, function(self, url, property)
+		go.delete()
+	end)
+end

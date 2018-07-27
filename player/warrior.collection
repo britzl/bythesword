@@ -1,0 +1,35 @@
+name: "warrior"
+instances {
+  id: "warrior"
+  prototype: "/player/warrior.go"
+  children: "weapon"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "weapon"
+  prototype: "/weapon/sword.go"
+  position {
+    x: -5.0
+    y: 8.0
+    z: 0.1
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+scale_along_z: 0

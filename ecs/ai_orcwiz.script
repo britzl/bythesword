@@ -1,0 +1,154 @@
+go.property("TARGET", hash("/warrior/warrior"))
+go.property("TARGET_GROUP", hash("player"))
+
+go.property("DETECT_RANGE", 200)
+go.property("DETECT_ANIMATION", hash(""))
+go.property("DETECT_INTERVAL", 1)
+go.property("DETECT_FACTORY", msg.url())
+
+go.property("CAST_RANGE", 500)
+go.property("CAST_INTERVAL", 2)
+go.property("CAST_ANIMATION", hash(""))
+go.property("CAST_EFFECT_INTERVAL", 40)
+go.property("CAST_EFFECT_FACTORY", msg.url())
+go.property("CAST_EFFECT_DELAY", 0.1)
+
+local messages = require("ecs.messages")
+local distance = require("lib.distance")
+
+local STATE_IDLE = hash("idle")
+local STATE_SPIN = hash("spin")
+local STATE_CAST = hash("cast")
+
+local RAYCAST_ID_CAST = 0
+local RAYCAST_ID_DETECT = 1
+
+function init(self)
+	self.enabled = true
+	self.ray_cast_group = { self.TARGET_GROUP }
+	self.detect_timer = 0
+	self.cast_timer = 0
+	self.state = STATE_IDLE
+	msg.post(".", messages.FACE, { direction = (math.random(1, 2) == 1) and 1 or -1 })
+end
+
+
+local function get_target_position(self)
+	local ok, target = pcall(go.get_world_position, self.TARGET)
+	if not ok then
+		return
+	end
+	return target
+end
+
+function update(self, dt)
+	if not self.enabled or self.dead or self.target_dead then
+		return
+	end
+
+	if self.state == STATE_IDLE then
+		self.cast_timer = self.cast_timer + dt
+		if self.cast_timer >= self.CAST_INTERVAL then
+			self.cast_timer = 0
+			local target = get_target_position(self)
+			if not target then
+				self.target_dead = true
+				return
+			end
+			
+			self.target_position = target
+			local me = go.get_world_position()
+			if distance.in_range(target, me, self.CAST_RANGE) then
+				physics.ray_cast(me, target, self.ray_cast_group, RAYCAST_ID_CAST)
+			end
+		end
+		
+		self.detect_timer = self.detect_timer + dt
+		if self.detect_timer >= self.DETECT_INTERVAL then
+			self.detect_timer = 0
+			local target = get_target_position(self)
+			if not target then
+				self.target_dead = true
+				return
+			end
+
+			local me = go.get_world_position()
+			if distance.in_range(target, me, self.DETECT_RANGE) then
+				physics.ray_cast(me, target, self.ray_cast_group, RAYCAST_ID_DETECT)
+			end
+		end
+	elseif self.state == STATE_SPIN then
+		local me = go.get_world_position()
+		if distance.in_range(me, self.spin_destination, 15) then
+			self.state = STATE_IDLE
+			msg.post(".", messages.IDLE)
+			msg.post(".", messages.STOP_RUNNING)
+		end
+	end
+end
+
+local function get_direction(from, to)
+	if from.x > to.x then
+		return -1
+	else
+		return 1
+	end
+end
+
+local function cast(self, target_position)
+	local me = go.get_position()
+	local direction = get_direction(me, target_position)
+	target_position = target_position + (vmath.vector3(self.CAST_RANGE, 0, 0) * direction)
+	local effect_count = math.ceil(math.abs(me.x - target_position.x) / self.CAST_EFFECT_INTERVAL)
+
+	for i = 0,effect_count do
+		me.x = me.x + (direction * self.CAST_EFFECT_INTERVAL)
+		factory.create(self.CAST_EFFECT_FACTORY, me, nil, { DELAY = i * self.CAST_EFFECT_DELAY })
+	end
+end
+
+local function spin(self, message)
+	self.state = STATE_SPIN
+	local me = go.get_position()
+	local direction = get_direction(me, message.position)
+	if direction > 0 then
+		self.spin_destination = message.position + vmath.vector3(self.DETECT_RANGE, 0, 0)
+	else
+		self.spin_destination = message.position - vmath.vector3(self.DETECT_RANGE, 0, 0)
+	end				
+	msg.post(".", messages.RUN, { direction = direction })
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.RAY_CAST_RESPONSE then
+		if self.state == STATE_IDLE then
+			if message.request_id == RAYCAST_ID_CAST then
+				local me = go.get_position()
+				local direction = get_direction(me, message.position)
+				msg.post(".", messages.FACE, { direction = direction })
+
+				self.cast_position = message.position
+				self.state = STATE_CAST
+				msg.post(".", messages.ANIMATE, { id = self.CAST_ANIMATION, priority = 8 })
+			elseif message.request_id == RAYCAST_ID_DETECT then
+				spin(self, message)
+			end		
+		end
+	elseif message_id == messages.ANIMATION_DONE then
+		if self.state == STATE_CAST then
+			cast(self, self.cast_position)
+		end
+		self.state = STATE_IDLE
+		msg.post(".", messages.IDLE)
+	elseif message_id == messages.DYING then
+		self.dead = true
+	elseif message_id == messages.TARGET_DIED then
+		self.target_dead = true
+	end
+end

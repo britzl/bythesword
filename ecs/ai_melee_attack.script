@@ -1,0 +1,29 @@
+go.property("GROUP", hash("player"))
+go.property("DELAY", 0.3)
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.enabled = true
+	self.busy = false
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == self.GROUP and not self.busy then
+			self.busy = true
+			go.cancel_animations("#", "DELAY")
+			go.animate("#", "DELAY", go.PLAYBACK_ONCE_FORWARD, self.DELAY, go.EASING_LINEAR, self.DELAY, 0, function(self, url, proprty)
+				msg.post(".", messages.ATTACK)
+			end)
+		end
+	elseif message_id == messages.ATTACK_DONE then
+		self.busy = false
+	end
+end

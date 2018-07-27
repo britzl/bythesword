@@ -1,0 +1,31 @@
+go.property("DIRECTION", vmath.vector3())
+go.property("SPEED", 300)
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.enabled = true
+	print("projectile init", self.DIRECTION)
+	msg.post(".", messages.FACE, { direction = self.DIRECTION.x })
+end
+
+
+function update(self, dt)
+	if not self.enabled then
+		return
+	end
+	-- update position
+	local p = go.get_position()
+	p.x = p.x + (self.SPEED * self.DIRECTION.x * dt)
+	go.set_position(p)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	end
+end

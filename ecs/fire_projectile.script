@@ -1,0 +1,34 @@
+go.property("FACTORY", msg.url("level:/factories#magicfactory"))
+go.property("OFFSET", vmath.vector3())
+go.property("ANIMATION", hash(""))
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.FIRE then
+		if not self.attacking then
+			self.attacking = true
+			if self.ANIMATION ~= hash("") then
+				msg.post(".", messages.ANIMATE, { id = self.ANIMATION, priority = 10 })
+			end
+			local position = go.get_position()
+			position.x = position.x + (self.OFFSET.x * message.direction.x * -1)
+			position.y = position.y + self.OFFSET.y
+			factory.create(self.FACTORY, position, go.get_rotation(), { DIRECTION = message.direction }, go.get_scale())
+		end
+	elseif message_id == messages.ANIMATION_DONE then
+		print("fire projectile done")
+		msg.post(".", messages.FIRE_DONE)
+		self.attacking = false
+	end
+end

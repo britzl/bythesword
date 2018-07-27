@@ -1,0 +1,625 @@
+images {
+  image: "/atlas/block.png"
+}
+images {
+  image: "/atlas/arrow-wallstuck.png"
+}
+animations {
+  id: "warrior_attack"
+  images {
+    image: "/atlas/warrior_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "warrior_idle"
+  images {
+    image: "/atlas/warrior_1.png"
+  }
+  images {
+    image: "/atlas/warrior_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "goblin_idle"
+  images {
+    image: "/atlas/goblin_1.png"
+  }
+  images {
+    image: "/atlas/goblin_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "jelly_idle"
+  images {
+    image: "/atlas/jelly_1.png"
+  }
+  images {
+    image: "/atlas/jelly_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 2
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "bat_idle"
+  images {
+    image: "/atlas/bat_1.png"
+  }
+  images {
+    image: "/atlas/bat_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "necromancer_idle"
+  images {
+    image: "/atlas/necromancer_1.png"
+  }
+  images {
+    image: "/atlas/necromancer_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "necromancer_attack"
+  images {
+    image: "/atlas/necromancer_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "goblin_attack"
+  images {
+    image: "/atlas/goblin_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "mage_idle"
+  images {
+    image: "/atlas/mage_1.png"
+  }
+  images {
+    image: "/atlas/mage_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "mage_attack"
+  images {
+    image: "/atlas/mage_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "theif_idle"
+  images {
+    image: "/atlas/thief_1.png"
+  }
+  images {
+    image: "/atlas/thief_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "thief_attack"
+  images {
+    image: "/atlas/thief_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "brute_idle"
+  images {
+    image: "/atlas/brute_1.png"
+  }
+  images {
+    image: "/atlas/brute_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "brute_attack"
+  images {
+    image: "/atlas/brute_attack.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_attack"
+  images {
+    image: "/atlas/ber-att_1.png"
+  }
+  images {
+    image: "/atlas/ber-att_2.png"
+  }
+  images {
+    image: "/atlas/ber-att_3.png"
+  }
+  images {
+    image: "/atlas/ber-att_4.png"
+  }
+  images {
+    image: "/atlas/ber-att_5.png"
+  }
+  images {
+    image: "/atlas/ber-att_6.png"
+  }
+  images {
+    image: "/atlas/ber-att_7.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_idle"
+  images {
+    image: "/atlas/ber-idle_1.png"
+  }
+  images {
+    image: "/atlas/ber-idle_2.png"
+  }
+  images {
+    image: "/atlas/ber-idle_3.png"
+  }
+  images {
+    image: "/atlas/ber-idle_4.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_run"
+  images {
+    image: "/atlas/ber-run_1.png"
+  }
+  images {
+    image: "/atlas/ber-run_2.png"
+  }
+  images {
+    image: "/atlas/ber-run_3.png"
+  }
+  images {
+    image: "/atlas/ber-run_4.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_hit"
+  images {
+    image: "/atlas/ber-hit_1.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_notice"
+  images {
+    image: "/atlas/ber-notice_1.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "berserker_corpse"
+  images {
+    image: "/atlas/ber-corpse.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "death_overlay"
+  images {
+    image: "/atlas/death_overlay.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcwiz_attack"
+  images {
+    image: "/atlas/orcwiz-attack_1.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_2.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_3.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_4.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_5.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_6.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_7.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_8.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_9.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_10.png"
+  }
+  images {
+    image: "/atlas/orcwiz-attack_11.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcwiz_run"
+  images {
+    image: "/atlas/orcwiz-run_1.png"
+  }
+  images {
+    image: "/atlas/orcwiz-run_2.png"
+  }
+  images {
+    image: "/atlas/orcwiz-run_3.png"
+  }
+  images {
+    image: "/atlas/orcwiz-run_4.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcwiz_corpse"
+  images {
+    image: "/atlas/orcwiz-corpse.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcwiz_hit"
+  images {
+    image: "/atlas/orcwiz-hit.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcwiz_idle"
+  images {
+    image: "/atlas/orcwiz-idle_1.png"
+  }
+  images {
+    image: "/atlas/orcwiz-idle_2.png"
+  }
+  images {
+    image: "/atlas/orcwiz-idle_3.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "poisonspike"
+  images {
+    image: "/atlas/poisonspike_1.png"
+  }
+  images {
+    image: "/atlas/poisonspike_2.png"
+  }
+  images {
+    image: "/atlas/poisonspike_3.png"
+  }
+  images {
+    image: "/atlas/poisonspike_4.png"
+  }
+  images {
+    image: "/atlas/poisonspike_5.png"
+  }
+  playback: PLAYBACK_ONCE_PINGPONG
+  fps: 12
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_idle"
+  images {
+    image: "/atlas/squire-idle_1.png"
+  }
+  images {
+    image: "/atlas/squire-idle_2.png"
+  }
+  images {
+    image: "/atlas/squire-idle_3.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_run"
+  images {
+    image: "/atlas/squire-walk_1.png"
+  }
+  images {
+    image: "/atlas/squire-walk_2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_jump"
+  images {
+    image: "/atlas/squire-jump+duck_1.png"
+  }
+  images {
+    image: "/atlas/squire-jump+duck_2.png"
+  }
+  images {
+    image: "/atlas/squire-jump+duck_3.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_hit"
+  images {
+    image: "/atlas/squire-hit.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_corpse"
+  images {
+    image: "/atlas/squire-corpse.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "fallsmoke"
+  images {
+    image: "/atlas/fallsmoke_1.png"
+  }
+  images {
+    image: "/atlas/fallsmoke_2.png"
+  }
+  images {
+    image: "/atlas/fallsmoke_3.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcbow_attack"
+  images {
+    image: "/atlas/orcbow-attack_1.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_2.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_3.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_4.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_5.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_6.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_7.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_8.png"
+  }
+  images {
+    image: "/atlas/orcbow-attack_9.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcbow_idle"
+  images {
+    image: "/atlas/orcbow-idle_1.png"
+  }
+  images {
+    image: "/atlas/orcbow-idle_2.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcbow_run"
+  images {
+    image: "/atlas/orcbow-walk_1.png"
+  }
+  images {
+    image: "/atlas/orcbow-walk_2.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcbow_corpse"
+  images {
+    image: "/atlas/orcbow-corpse.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "orcbow_hit"
+  images {
+    image: "/atlas/orcbow-hit.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "arrow_fly"
+  images {
+    image: "/atlas/arrow-fly.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "squire_wall_contact"
+  images {
+    image: "/atlas/squire-walljump.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 6
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "sword_attack"
+  images {
+    image: "/atlas/sword1_att1.png"
+  }
+  images {
+    image: "/atlas/sword1_att2.png"
+  }
+  images {
+    image: "/atlas/sword1_att3.png"
+  }
+  images {
+    image: "/atlas/sword1_att4.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 15
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "sword_idle"
+  images {
+    image: "/atlas/sword1_att1.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 1
+  flip_vertical: 0
+}
+animations {
+  id: "blood"
+  images {
+    image: "/atlas/blood_1.png"
+  }
+  images {
+    image: "/atlas/blood_2.png"
+  }
+  images {
+    image: "/atlas/blood_3.png"
+  }
+  images {
+    image: "/atlas/blood_4.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 8
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 1
+inner_padding: 0

@@ -1,0 +1,20 @@
+local messages = require("ecs.messages")
+
+
+function init(self)
+	self.enabled = true
+end
+
+function update(self, dt)
+	if self.enabled then
+		msg.post("@render:", "move_camera", { position = go.get_position() })
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	end		
+end

@@ -1,0 +1,56 @@
+local messages = require("ecs.messages")
+
+local EMPTY_HASH = hash("")
+
+function init(self)
+	self.enabled = true
+	self.id = nil
+	self.priority = 0
+	self.sender = nil
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.ANIMATE then
+		local id = message.id
+		local priority = message.priority or (self.priority + 1)
+		
+		if self.looping_animation and self.looping_priority > priority then
+			return
+		end
+		
+		if message.looping then
+			self.looping_animation = message.id
+			self.looping_priority = priority
+		end
+		--print("animate", id, priority, self.priority, "force=", force)
+		if ((id ~= self.id) and (id ~= EMPTY_HASH) and (priority >= self.priority)) or message.force then
+			self.id = id
+			self.priority = priority 
+			self.sender = sender
+			msg.post("#sprite", "play_animation", { id = self.id })
+		end
+	elseif message_id == messages.STOP_ANIMATION then
+		self.id = nil
+		self.looping_animation = nil
+		self.looping_priority = nil
+	elseif message_id == messages.DYING then
+		self.enabled = false
+	elseif message_id == messages.ANIMATION_DONE then
+		if self.enabled then
+			self.id = nil
+			self.priority = 0
+			msg.post(self.sender, messages.ANIMATION_DONE, message)
+			self.sender = nil
+			
+			if self.looping_animation then
+				msg.post("#sprite", "play_animation", { id = self.looping_animation })
+			end
+		end
+	end
+end

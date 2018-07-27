@@ -1,0 +1,27 @@
+go.property("WEAPON_URL", msg.url("weapon"))
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.attacking = false
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.ATTACK then
+		if not self.attacking then
+			msg.post(self.WEAPON_URL, messages.ATTACK)
+			msg.post(".", messages.ATTACKING)
+			self.attacking = true
+		end
+	elseif message_id == messages.ATTACK_DONE and sender.socket == self.WEAPON_URL.socket and sender.path == self.WEAPON_URL.path then
+		msg.post(".", messages.ATTACK_DONE)
+		self.attacking = false
+	end
+end

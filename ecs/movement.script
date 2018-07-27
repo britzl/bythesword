@@ -1,0 +1,350 @@
+go.property("MAX_WALKING_SPEED", 115)
+go.property("WALK_ACCELERATION", 250)
+
+go.property("MAX_RUNNING_SPEED", 230)
+go.property("RUN_ACCELERATION", 500)
+
+go.property("TURN_ACCELERATION", 5000)
+go.property("GROUND_FRICTION", 500)
+
+go.property("MAX_CLIMBING_SPEED", 500)
+go.property("CLIMB_ACCELERATION", 500)
+
+go.property("JUMP_TAKEOFF_SPEED", 550)
+go.property("PUSHBACK_SPEED", 350)
+go.property("WEIGHT", 1.0)
+
+go.property("DOUBLE_JUMP_SPEED", 0)
+go.property("WALL_JUMP_SPEED", 0)
+
+go.property("WALK_ANIMATION", hash(""))
+go.property("RUN_ANIMATION", hash(""))
+go.property("JUMP_ANIMATION", hash(""))
+go.property("FALL_ANIMATION", hash(""))
+go.property("WALL_ANIMATION", hash(""))
+
+go.property("LAND_EFFECT_THRESHOLD", 70)
+go.property("LAND_EFFECT_FACTORY", msg.url())
+go.property("LAND_ANIMATION", hash(""))
+
+go.property("BOUNCINESS", 0)
+
+
+local messages = require("ecs.messages")
+
+local GROUP_OBSTACLE = hash("obstacle")
+local GROUP_LADDER = hash("ladder")
+
+local AIR_ACCELERATION_FACTOR = 0.8
+local MAX_SPEED = 3000
+
+local EMPTY_HASH = hash("")
+
+-- gravity pulling the player down in pixel units
+local GRAVITY = -1000
+
+local function resolve_collision(self, normal, distance)
+	if distance > 0 then
+		local proj = vmath.project(self.correction, normal * distance)
+		if proj < 1 then
+			local comp = (distance - distance * proj) * normal
+			go.set_position(go.get_position() + comp)
+			self.correction = self.correction + comp
+		end
+	end
+end
+
+
+local function handle_obstacle_contact(self, normal, distance)
+	resolve_collision(self, normal, distance)
+		
+	-- project the velocity onto the normal
+	local proj = vmath.dot(self.velocity, normal)
+	local proj_normal = proj * normal
+
+	-- check if the normal points enough up to consider the player standing on the ground
+	-- (0.7 is roughly equal to 45 degrees deviation from pure vertical direction)
+	local gc = (normal.y > 0.7)
+	if gc then
+		self.ground_contact = true
+		if self.falling then
+			local fall_distance = self.falling_from - go.get_position()
+			if self.LAND_ANIMATION ~= EMPTY_HASH then
+				msg.post(".", messages.ANIMATE, { id = self.LAND_ANIMATION, priority = 8 })
+			end
+			if fall_distance.y >= self.LAND_EFFECT_THRESHOLD then
+				if self.LAND_EFFECT_FACTORY ~= self.me then
+					factory.create(self.LAND_EFFECT_FACTORY, go.get_position())
+				end
+			end
+			msg.post(".", messages.IDLE)
+			self.falling = false
+		end
+		self.jumping = false
+		self.velocity.y = math.abs(self.velocity.y * self.BOUNCINESS)
+	elseif proj < 0 then
+		self.velocity.y = self.velocity.y - proj_normal.y
+	end
+	
+
+	local wc = (math.abs(normal.x) == 1)
+	if not self.ground_contact and wc then
+		self.wall_contact = true
+		self.wall_jump_timout = 0.2
+		self.velocity.x = math.abs(self.velocity.x * self.BOUNCINESS)
+		if self.WALL_ANIMATION ~= EMPTY_HASH then
+			msg.post(".", messages.ANIMATE, { id = self.WALL_ANIMATION, priority = 1, force = true })
+		end
+	elseif proj < 0 then
+		self.velocity.x = self.velocity.x - proj_normal.x
+	end
+	
+	if not self.ground_contact and not self.wall_contact and self.falling then
+		msg.post(".", messages.IDLE)
+	end
+	
+	if self.is_player then
+--		print("handle obstacle gc = ", self.ground_contact, "wc=", self.wall_contact)
+	end
+	
+end
+
+
+local function handle_ladder_contact(self, normal, distance)
+	self.ladder_contact = true
+end
+
+
+local function is_moving(self)
+	return self.move_direction ~= 0
+end
+
+
+local function is_climbing(self)
+	return self.climb_direction ~= 0 and self.ladder_contact
+end
+
+
+local function clamp(value, max)
+	if value > max then
+		return max
+	elseif value < -max then
+		return -max
+	end
+	return value
+end
+
+
+local function jump(self)
+	if self.JUMP_ANIMATION ~= EMPTY_HASH then
+		msg.post(".", messages.ANIMATE, { id = self.JUMP_ANIMATION, priority = 2 })
+	end
+	if self.ground_contact or self.ladder_contact then
+		self.double_jump_allowed = true
+		self.velocity.y = self.JUMP_TAKEOFF_SPEED
+		self.jumping = true
+	elseif self.wall_contact or (self.wall_jump_timout and self.wall_jump_timout > 0) then
+		self.velocity.x = self.WALL_JUMP_SPEED * self.collision_normal.x
+		self.velocity.y = self.JUMP_TAKEOFF_SPEED
+	elseif self.double_jump_allowed and self.velocity.y > 0 then
+		self.velocity.y = self.DOUBLE_JUMP_SPEED
+		self.double_jump_allowed = false		
+	end
+end
+
+-- Cut the jump short if still going up
+local function abort_jump(self)
+	if self.velocity.y > 0 then
+		-- scale down the upwards speed
+		self.velocity.y = self.velocity.y * 0.5
+	end
+end
+
+local function move(self, direction, acceleration, max_speed)
+	if direction then
+		self.changing_direction = (self.move_direction ~= direction) and (direction ~= 0) 
+		self.move_direction = direction
+		self.move_acceleration = acceleration
+		self.move_max_speed = max_speed
+	end
+end
+
+local function run(self, direction)
+	move(self, direction, self.RUN_ACCELERATION, self.MAX_RUNNING_SPEED)
+	if self.RUN_ANIMATION ~= EMPTY_HASH then
+		if direction ~= 0 then
+			msg.post(".", messages.ANIMATE, self.run_animation_msg)
+		else
+			msg.post(".", messages.STOP_ANIMATION)
+		end
+	end
+end
+
+local function walk(self, direction)
+	move(self, direction, self.WALK_ACCELERATION, self.MAX_WALKING_SPEED)
+	if self.WALK_ANIMATION ~= EMPTY_HASH then
+		if direction ~= 0 then
+			msg.post(".", messages.ANIMATE, self.walk_animation_msg)
+		else
+			msg.post(".", messages.STOP_ANIMATION)
+		end
+	end
+end
+
+
+local function climb(self, direction)
+	if direction then
+		self.climb_direction = direction
+		msg.post(".", messages.STOP_ANIMATION)
+	end
+end
+
+
+local function stop(self)
+	self.move_direction = 0
+	self.velocity.x = 0
+	msg.post(".", messages.STOP_ANIMATION)
+end
+
+
+local function pushback(self, normal, distance)
+	self.velocity = self.velocity - normal * self.PUSHBACK_SPEED
+end
+
+
+function init(self)
+	self.enabled = true
+	self.velocity = vmath.vector3(0, 0, 0)
+	self.move_direction = 0
+	self.move_acceleration = 0
+	self.move_max_speed = 0
+	self.climb_direction = 0
+	self.ground_contact = false
+	self.correction = vmath.vector3()
+	self.touch_jump_timer = 0
+	
+	self.run_animation_msg = { id = self.RUN_ANIMATION, priority = 2, looping = true }
+	self.walk_animation_msg = { id = self.WALK_ANIMATION, priority = 2, looping = true }
+	self.jump_animation_msg = { id = self.JUMP_ANIMATION, priority = 3 }
+	
+	self.me = msg.url()
+	
+	-- for debugging purposes
+	self.is_player = tostring(self.me):match("player")
+end
+
+
+--- brilliant platformer physics guide (Sonic series): http://info.sonicretro.org/Sonic_Physics_Guide
+function update(self, dt)
+	if self.is_player then
+		--print("update")
+	end
+	
+	if self.wall_jump_timout and self.wall_jump_timout > 0 then
+		self.wall_jump_timout = self.wall_jump_timout - dt
+	end
+
+	if is_moving(self) then
+		-- calculate horizontal acceleration when running
+		-- acceleration is higher when changing direction (otherwise turning would feel sluggish)
+		local acceleration = self.move_direction
+		if self.changing_direction then
+			acceleration = acceleration * self.TURN_ACCELERATION 
+		else
+			acceleration = acceleration * self.move_acceleration 
+		end
+		
+		-- reduce horizontal acceleration if airborne 
+		if not self.ground_contact then
+			acceleration = acceleration * AIR_ACCELERATION_FACTOR
+		end
+		
+		-- apply acceleration
+		self.velocity.x = self.velocity.x + (acceleration * dt)
+		self.velocity.x = clamp(self.velocity.x, self.move_max_speed)
+	else
+		-- not running - apply friction
+		if self.velocity.x > 0 then
+			self.velocity.x = math.max(self.velocity.x - (self.GROUND_FRICTION * dt), 0)
+		elseif self.velocity.x < 0 then
+			self.velocity.x = math.min(self.velocity.x + (self.GROUND_FRICTION * dt), 0)
+		end	
+	end
+	
+	if is_climbing(self) then
+		local acceleration = self.climb_direction * self.CLIMB_ACCELERATION
+		self.velocity.y = self.velocity.y + (acceleration * dt)
+		self.velocity.y = clamp(self.velocity.y, self.MAX_CLIMBING_SPEED)
+	elseif self.ladder_contact and self.velocity.y <= 0 then
+		self.velocity.y = 0
+	else
+		-- apply gravity
+		self.velocity.y = self.velocity.y + (self.WEIGHT * GRAVITY * dt)
+	end
+
+	-- keep track of from where the player started falling (ie negative vertical velocity)
+	if not self.falling and not self.ground_contact and self.velocity.y < 0 then
+		self.falling = true
+		self.falling_from = go.get_position()
+	end
+
+	-- clamp velocity
+	self.velocity.x = clamp(self.velocity.x, MAX_SPEED)
+	self.velocity.y = clamp(self.velocity.y, MAX_SPEED)
+
+	
+	-- update position
+	go.set_position(go.get_position() + (self.velocity * dt))
+	
+	
+	-- reset volatile state
+	self.correction = vmath.vector3()
+	self.ground_contact = false
+	self.ladder_contact = false
+	self.wall_contact = false
+	self.changing_direction = false 	
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == GROUP_OBSTACLE then
+			self.collision_normal = message.normal
+			handle_obstacle_contact(self, message.normal, message.distance)
+			--msg.post(".", messages.SET_PARENT, { parent_id = message.other_id })
+		elseif message.group == GROUP_LADDER then
+			--print("ladder contact")
+			handle_ladder_contact(self, message.normal, message.distance)
+		end
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.MOVE then
+		self.velocity = self.velocity + message.amount
+	elseif message_id == messages.RUN then
+		run(self, message.direction)
+	elseif message_id == messages.WALK then
+		walk(self, message.direction)
+	elseif message_id == messages.STOP_RUNNING then
+		stop(self)
+	elseif message_id == messages.CLIMB then
+		climb(self, message.direction)
+	elseif message_id == messages.JUMP then
+		jump(self)
+	elseif message_id == messages.ABORT_JUMP then
+		abort_jump(self)
+	elseif message_id == messages.PUSHBACK and not self.attacking then
+		pushback(self, message.normal, message.distance)
+	elseif message_id == messages.ATTACKING then
+		self.attacking = true
+	elseif message_id == messages.ATTACK_DONE then
+		self.attacking = false
+	elseif message_id == messages.DYING then
+		stop(self)
+	elseif message_id == messages.REQUEST_VELOCITY then
+		msg.post(sender, messages.VELOCITY_RESPONSE, { velocity = self.velocity })
+	end
+end

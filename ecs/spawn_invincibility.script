@@ -1,0 +1,16 @@
+go.property("DURATION", 1.5)
+
+local messages = require("ecs.messages")
+
+function init(self)
+	-- disable all other scripts
+	msg.post(".", messages.DISABLE_SCRIPT)
+	
+	local tint = go.get("#sprite", "tint")
+	go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1.0, 1.0, 1.0, 0), go.EASING_LINEAR, 0.2, 0)
+	go.animate("#", "DURATION", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, self.DURATION, 0, function(self, url, property)
+		msg.post(".", messages.ENABLE_SCRIPT)
+		go.cancel_animations("#sprite", "tint")
+		go.set("#sprite", "tint", tint)
+	end)
+end

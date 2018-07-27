@@ -1,0 +1,34 @@
+name: "game"
+instances {
+  id: "game"
+  prototype: "/game/game.go"
+  position {
+    x: 814.98145
+    y: 785.9287
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+instances {
+  id: "hud"
+  prototype: "/hud/hud.go"
+  position {
+    x: 814.98145
+    y: 785.9287
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale: 1.0
+}
+scale_along_z: 0

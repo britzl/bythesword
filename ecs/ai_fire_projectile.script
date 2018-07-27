@@ -1,0 +1,80 @@
+go.property("TARGET", hash("/warrior/warrior"))
+go.property("TARGET_GROUP", hash("player"))
+go.property("INTERVAL", 1)
+go.property("DETECT_RANGE", 500)
+
+local messages = require("ecs.messages")
+local distance = require("lib.distance")
+
+local STATE_TARGETING = hash("targeting")
+local STATE_FIRING = hash("firing")
+
+function init(self)
+	self.state = STATE_TARGETING
+	self.enabled = true
+	self.ray_cast_group = { self.TARGET_GROUP }
+	self.timer = 0
+end
+
+function update(self, dt)
+	if not self.enabled or self.dead or self.target_dead or self.state == STATE_FIRING then
+		return
+	end
+
+	self.timer = self.timer + dt
+	if self.timer >= self.INTERVAL then
+		local ok, target = pcall(go.get_world_position, self.TARGET)
+		if not ok then
+			print("ERROR, ai_fire_projectile")
+			self.target_dead = true
+			return
+		end
+		
+		local me = go.get_world_position()
+		if distance.in_range(target, me, self.DETECT_RANGE) then
+			physics.ray_cast(me, target, self.ray_cast_group)
+			self.timer = 0
+		end
+	end
+end
+
+local function direction(from, to)
+	local h = 0
+	if from.x > to.x then
+		h = -1
+	elseif from.x < to.x then
+		h = 1
+	end
+	local v = 0
+	if from.y > to.y then
+		v = -1
+	elseif from.y < to.y then
+		v = 1
+	end
+	return vmath.vector3(h, v, 0)
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.RAY_CAST_RESPONSE then
+		self.state = STATE_FIRING
+		local d = direction(go.get_position(), message.position)
+		msg.post(".", messages.ACTIVE)
+		msg.post(".", messages.STOP_RUNNING)
+		msg.post(".", messages.FACE, { direction = d.x })
+		msg.post(".", messages.FIRE, { direction = d }) 
+ 	elseif message_id == messages.DYING then
+		self.dead = true
+	elseif message_id == messages.TARGET_DIED then
+		self.target_dead = true
+	elseif message_id == messages.FIRE_DONE then
+		self.state = STATE_TARGETING
+		msg.post(".", messages.IDLE)
+	end
+end

@@ -1,0 +1,11 @@
+local messages = require("ecs.messages")
+
+function init(self)
+	self.states = {}
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.AI_ADD_STATE then
+		--self.states[message.id] = { url = sender, 
+	end
+end

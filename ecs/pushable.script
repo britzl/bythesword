@@ -1,0 +1,21 @@
+local messages = require("ecs.messages")
+
+go.property("PUSH_GROUP", hash(""))
+
+function init(self)
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == self.PUSH_GROUP then
+			msg.post(".", messages.MOVE, { amount = message.normal * 100 })
+		end
+	end
+end

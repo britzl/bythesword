@@ -1,0 +1,25 @@
+go.property("SPRITE_URL", msg.url("#sprite"))
+go.property("ANIMATION", hash(""))
+go.property("DELAY", 0)
+
+
+local messages = require("ecs.messages")
+
+function init(self)
+	--msg.post(self.SPRITE_URL, hash("disable"))
+	go.animate("#", "DELAY", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, self.DELAY, 0, function()
+		--msg.post(self.SPRITE_URL, hash("enable"))
+--[[		local tint = go.get(self.SPRITE_URL, "tint")
+		tint.w = 0
+		go.set(self.SPRITE_URL, "tint", tint)
+		tint.w = 1.0
+		go.animate(self.SPRITE_URL, "tint", go.PLAYBACK_ONCE_PINGPONG, tint, go.EASING_INCIRC, 1.5, 0)--]]
+		--msg.post(self.SPRITE_URL, "play_animation", { id = self.ANIMATION })
+	end)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ANIMATION_DONE then
+		go.delete()
+	end
+end

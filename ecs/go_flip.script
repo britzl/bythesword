@@ -1,0 +1,23 @@
+local messages = require("ecs.messages")
+
+function init(self)
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.RUN or message_id == messages.WALK or message_id == messages.FACE then
+		if message.direction > 0 then
+			go.set_rotation(vmath.quat_rotation_y(0))
+			--sprite.set_hflip(self.SPRITE_URL, true)
+		elseif message.direction < 0 then
+			go.set_rotation(vmath.quat_rotation_y(math.pi))
+			--sprite.set_hflip(self.SPRITE_URL, false)
+		end
+	end
+end

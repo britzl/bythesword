@@ -1,0 +1,5 @@
+local golimiter = require("lib.golimiter")
+
+function init(self)
+	golimiter.add(msg.url())
+end

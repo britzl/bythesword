@@ -1,0 +1,29 @@
+go.property("FACTORY", msg.url())
+go.property("SPLIT_COUNTER", 2)
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.enabled = true
+end
+
+local function random_position()
+	return go.get_position() + vmath.vector3(math.random(30) - 15, math.random(30) - 15, 0)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.DEAD then
+		local scale = go.get_scale()
+		local rotation = go.get_rotation()
+		if self.SPLIT_COUNTER > 0 then
+			factory.create(self.FACTORY, random_position(), rotation, { SPLIT_COUNTER = self.SPLIT_COUNTER - 1 }, scale * 0.75)
+			factory.create(self.FACTORY, random_position(), rotation, { SPLIT_COUNTER = self.SPLIT_COUNTER - 1 }, scale * 0.75)
+		end
+	end
+end

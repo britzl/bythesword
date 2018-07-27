@@ -1,0 +1,40 @@
+go.property("GROUP", hash(""))
+go.property("ANIMATION", hash(""))
+go.property("RUSH_SPEED", 300)
+
+
+local messages = require("ecs.messages")
+
+function init(self)
+	self.direction = 0
+	self.attacking = false
+	self.enabled = true
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.SPECIAL_ATTACK1 then
+		print("special attack", self.direction)
+		msg.post(".", messages.ANIMATE, { id = self.ANIMATION, priority = 10 })
+		msg.post(".", messages.MOVE, { amount = vmath.vector3(self.RUSH_SPEED * self.direction, 0, 0) })
+		msg.post(".", messages.ATTACKING)
+		self.attacking = true
+	elseif message_id == messages.RUN then
+		if message.direction ~= 0 then
+			self.direction = message.direction
+		end
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == self.GROUP and self.attacking then
+			msg.post(".", messages.HIT, message)
+			self.attacking = false
+		end
+	elseif message_id == messages.ANIMATION_DONE then
+		msg.post(".", messages.ATTACK_DONE)
+		self.attacking = false
+	end
+end

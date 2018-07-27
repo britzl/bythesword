@@ -1,0 +1,111 @@
+go.property("TARGET", hash("/warrior/warrior"))
+go.property("TARGET_GROUP", hash("player"))
+go.property("DETECT_FACTORY", msg.url())
+go.property("DETECT_RANGE", 500)
+go.property("DETECT_ANIMATION", hash(""))
+go.property("DETECT_INTERVAL", 1)
+go.property("RUSH_TIMEOUT", 1)
+
+local messages = require("ecs.messages")
+local distance = require("lib.distance")
+
+local STATE_IDLE = hash("idle")
+local STATE_DETECTED = hash("detected")
+local STATE_RUSH = hash("rush")
+local STATE_ATTACKING = hash("attacking")
+
+function init(self)
+	self.enabled = true
+	self.ray_cast_group = { self.TARGET_GROUP }
+	self.timer = 0
+	self.state = STATE_IDLE
+	msg.post(".", messages.FACE, { direction = (math.random(1, 2) == 1) and 1 or -1 })
+end
+
+
+local function get_target_position(self)
+	local ok, target = pcall(go.get_world_position, self.TARGET)
+	if not ok then
+		return
+	end
+	return target
+end
+
+function update(self, dt)
+	if not self.enabled or self.dead or self.target_dead then
+		return
+	end
+
+	if self.state == STATE_IDLE then
+		self.timer = self.timer + dt
+		if self.timer >= self.DETECT_INTERVAL then
+			local target = get_target_position(self)
+			if not target then
+				self.target_dead = true
+				return
+			end
+			
+			self.target_position = target
+			local me = go.get_world_position()
+			if distance.in_range(target, me, self.DETECT_RANGE) then
+				physics.ray_cast(me, target, self.ray_cast_group)
+				self.timer = 0
+			end
+		end
+	elseif self.state == STATE_RUSH then
+		self.timer = self.timer + dt
+		if self.timer > self.RUSH_TIMEOUT then
+			self.state = STATE_ATTACKING
+			msg.post(".", messages.STOP_RUNNING)
+			msg.post(".", messages.ATTACK)
+		else
+			local me = go.get_world_position()
+			if distance.in_range(me, self.target_position, 15) then
+				self.state = STATE_ATTACKING
+				msg.post(".", messages.STOP_RUNNING)
+				msg.post(".", messages.ATTACK)
+			end
+		end
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.RAY_CAST_RESPONSE then
+		if self.state == STATE_IDLE then
+			self.timer = 0
+			self.state = STATE_DETECTED
+			factory.create(self.DETECT_FACTORY, go.get_world_position())
+			msg.post(".", messages.ACTIVE)
+			msg.post(".", messages.ANIMATE, { id = self.DETECT_ANIMATION, priority = 10 })
+		end
+	elseif message_id == messages.ANIMATION_DONE then
+		if message.id == self.DETECT_ANIMATION then
+			self.state = STATE_RUSH
+			self.timer = 0
+			local me = go.get_world_position()
+			local direction = me.x > self.target_position.x and -1 or 1
+			msg.post(".", messages.ACTIVE)
+			msg.post(".", messages.RUN, { direction = direction })
+		end
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == self.TARGET_GROUP then
+			self.state = STATE_ATTACKING
+			msg.post(".", messages.ACTIVE)
+			msg.post(".", messages.STOP_RUNNING)
+		end
+	elseif message_id == messages.ATTACK_DONE then
+		self.state = STATE_IDLE
+		self.timer = 0
+		msg.post(".", messages.IDLE)
+	elseif message_id == messages.DYING then
+		self.dead = true
+	elseif message_id == messages.TARGET_DIED then
+		self.target_dead = true
+	end
+end

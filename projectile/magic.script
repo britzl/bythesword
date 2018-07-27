@@ -1,0 +1,8 @@
+function init(self)
+	particlefx.play("#particlefx")
+	go.set_scale(0.5)
+end
+
+function final(self)
+	particlefx.stop("#particlefx")
+end

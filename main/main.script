@@ -1,0 +1,16 @@
+local PROXY_LOADED = hash("proxy_loaded")
+
+function init(self)
+	print("init")
+	msg.post(".", "acquire_input_focus")
+	msg.post("#gameproxy", hash("load"))
+end
+
+function final(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == PROXY_LOADED then
+		msg.post(sender, hash("enable"))
+	end
+end

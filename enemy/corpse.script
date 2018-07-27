@@ -1,0 +1,10 @@
+local messages = require("ecs.messages")
+
+go.property("VELOCITY", vmath.vector3(0, 350, 0))
+go.property("ANIMATION", hash(""))
+
+function init(self)
+	msg.post("#sprite", "play_animation", { id = self.ANIMATION })
+	msg.post(".", messages.MOVE, { amount = self.VELOCITY })
+	particlefx.play("#particlefx")
+end

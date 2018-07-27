@@ -1,0 +1,67 @@
+go.property("HEALTH", 1	)
+go.property("CORPSE_FACTORY", msg.url())
+go.property("CORPSE_ANIMATION", hash(""))
+go.property("HIT_ANIMATION", hash(""))
+
+local messages = require("ecs.messages")
+
+local EMPTY_HASH = hash("")
+
+function init(self)
+	self.enabled = true
+	self.current = self.HEALTH
+	self.animating = false
+end
+
+
+local function is_alive(self)
+	return self.current > 0
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.DAMAGE then
+		if is_alive(self) then
+			if self.HIT_ANIMATION ~= EMPTY_HASH then
+				msg.post(".", messages.ANIMATE, { id = self.HIT_ANIMATION, priority = 2 })
+			end
+			
+			self.current = math.max(self.current - (message.amount or 1), 0)
+			
+			if not self.animating then
+				self.animating = true
+				sprite.set_constant("#sprite", "tint", vmath.vector4(1.0, 1.0, 1.0, 1.0))
+				go.animate("#sprite", "tint", go.PLAYBACK_ONCE_PINGPONG, vmath.vector4(1.5, 1.5, 1.5, 1.0), go.EASING_INOUTCIRC, 0.3, 0, function(self, url, property)
+					self.animating = false
+				end)
+			end
+			
+			msg.post(".", messages.HEALTH_DECREASED, { health = self.current, amount = message.amount })
+			msg.post(".", messages.HEALTH_CHANGED, { health = self.current, amount = message.amount })
+			
+			--print(self.current)
+			if not is_alive(self) then
+				-- notify other scripts that we died
+				msg.post(".", messages.DYING)
+				
+				-- notify the attacker that we died
+				msg.post(msg.url(sender.socket, sender.path, nil), messages.TARGET_DIED)
+				
+				-- fade out and delete
+				sprite.set_constant("#sprite", "tint", vmath.vector4(1.0, 1.0, 1.0, 1.0))
+				go.cancel_animations("#sprite", "tint")
+				go.animate("#sprite", "tint", go.PLAYBACK_ONCE_FORWARD, vmath.vector4(1.0, 1.0, 1.0, 0), go.EASING_INOUTCIRC, 0.5, 0, function(self, url, property)
+					msg.post(".", messages.DEAD)
+					factory.create(self.CORPSE_FACTORY, go.get_position() + vmath.vector3(0, 20, 0), nil, { ANIMATION = self.CORPSE_ANIMATION })
+					go.delete()
+				end)
+			end
+		end
+	end
+end

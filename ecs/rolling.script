@@ -1,0 +1,37 @@
+local messages = require("ecs.messages")
+
+function init(self)
+	self.last_position = go.get_position()
+	self.angle = 0
+	self.enabled = true
+end
+
+function update(self, dt)
+	if not self.enabled then
+		return
+	end
+
+	local position = go.get_position()
+		local distance = position - self.last_position
+	self.last_position = position
+
+	local speed = math.abs(distance.x) * dt
+	local base = 3
+	if distance.x > 0 then
+		self.angle = self.angle - base * speed
+	elseif distance.x < 0 then
+		self.angle = self.angle + base * speed
+	end
+	
+	go.set_rotation(vmath.quat_axis_angle(vmath.vector3(0, 0, 1), self.angle))
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	end
+end

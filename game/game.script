@@ -1,0 +1,87 @@
+local messages = require("ecs.messages")
+
+local INPUT_RESPAWN = hash("respawn")
+
+local PROXY_LOADED = hash("proxy_loaded")
+local PROXY_UNLOADED = hash("proxy_unloaded")
+
+
+local function unload_current_level(self)
+	assert(self.current_level_url, "Unloading current level, but no level is loaded")
+	msg.post(self.current_level_url, hash("disable"))
+	msg.post(self.current_level_url, hash("final"))
+	msg.post(self.current_level_url, hash("unload"))
+end
+
+local function load_level(self, level_url)
+	print("load_level", level_url)
+	if self.pending_level_url then
+		self.pending_level_url = level_url
+	elseif self.current_level_url then
+		self.pending_level_url = level_url
+		unload_current_level(self)
+	else
+		self.current_level_url = level_url
+		msg.post(level_url, hash("load"))
+	end
+end
+
+
+local function reload_level(self)
+	load_level(self, self.current_level_url)
+end
+
+
+function init(self)
+	print("init game")
+	msg.post(".", "acquire_input_focus")
+
+	self.enemies = {}
+
+	load_level(self, "#level3proxy")
+
+	-- set blue background
+    msg.post("@render:", "clear_color", { color = vmath.vector4(208 / 255, 236 / 255, 196 / 255, 0) } )
+end
+
+
+function final(self)
+	unload_current_level(self)
+end
+
+
+local function post_to_enemies(self, message_id, message)
+	for _,enemy in pairs(self.enemies) do
+		msg.post(enemy, message_id, message)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	print(message_id)
+	if message_id == PROXY_LOADED then
+		msg.post(sender, hash("enable"))
+	elseif message_id == PROXY_UNLOADED then
+		if self.pending_level_url then
+			local level = self.pending_level_url
+			self.pending_level_url = nil
+			self.current_level_url = nil
+			load_level(self, level)
+		end	
+	elseif message_id == messages.REGISTER then
+		local url = msg.url(sender.socket, sender.path, nil)
+		self.enemies[tostring(url)] = url
+	elseif message_id == messages.UNREGISTER then
+		local url = msg.url(sender.socket, sender.path, nil)
+		self.enemies[tostring(url)] = nil
+	elseif message_id == messages.PLAYER_DEAD then
+		post_to_enemies(self, messages.PLAYER_DEAD, message)
+		reload_level(self)
+	end
+end
+
+
+function on_input(self, action_id, action)
+	if action_id == INPUT_RESPAWN and action.released then
+		reload_level(self)
+	end
+end

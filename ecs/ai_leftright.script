@@ -1,0 +1,24 @@
+local messages = require("ecs.messages")
+
+local GROUP_OBSTACLE = hash("obstacle")
+
+function init(self)
+	self.enabled = true
+	msg.post(".", messages.RUN, { direction = (math.random(1, 2) == 1) and -1 or 1 })
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.CONTACT_POINT_RESPONSE then
+		if message.group == GROUP_OBSTACLE then
+			if message.normal.x ~= 0 then
+				msg.post(".", messages.RUN, { direction = message.normal.x })
+			end
+		end
+	end
+end

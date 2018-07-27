@@ -1,0 +1,41 @@
+image: "/level/templetiles.png"
+tile_width: 65
+tile_height: 64
+tile_margin: 0
+tile_spacing: 0
+collision: "/level/templetiles.png"
+material_tag: "tile"
+convex_hulls {
+  index: 0
+  count: 4
+  collision_group: "obstacle"
+}
+convex_hulls {
+  index: 4
+  count: 4
+  collision_group: "ladder"
+}
+convex_hulls {
+  index: 8
+  count: 4
+  collision_group: "obstacle"
+}
+convex_hulls {
+  index: 12
+  count: 6
+  collision_group: "ladder"
+}
+convex_hulls {
+  index: 18
+  count: 4
+  collision_group: "obstacle"
+}
+convex_hulls {
+  index: 22
+  count: 0
+  collision_group: ""
+}
+collision_groups: "ladder"
+collision_groups: "obstacle"
+extrude_borders: 0
+inner_padding: 0

@@ -1,0 +1,60 @@
+go.property("IDLE_DISTANCE", 50)
+go.property("IDLE_ANIMATION", hash(""))
+go.property("IDLE_INTERVAL", 3)
+
+local messages = require("ecs.messages")
+
+local EMPTY_HASH = hash("")
+
+function init(self)
+	self.enabled = true
+	self.dead = false
+	self.idle_timer = 0
+	self.initial_position = go.get_position()
+	self.move_to_position = vmath.vector3(self.initial_position.x + self.IDLE_DISTANCE, self.initial_position.y, self.initial_position.z)
+end
+
+
+function update(self, dt)
+	if not self.enabled or self.dead then
+		return
+	end
+	
+	self.idle_timer = self.idle_timer + dt
+	if self.idle_timer > self.IDLE_INTERVAL then
+		self.idle_timer = 0
+		msg.post(".", messages.ANIMATE, { id = self.IDLE_ANIMATION, priority = 1 })
+	elseif self.IDLE_DISTANCE ~= 0 then		
+		local me = go.get_world_position()
+		local left = self.move_to_position.x < self.initial_position.x
+		if left and me.x < self.move_to_position.x then
+			self.move_to_position.x = self.initial_position.x + self.IDLE_DISTANCE
+		elseif not left and me.x > self.move_to_position.x then
+			self.move_to_position.x = self.initial_position.x - self.IDLE_DISTANCE
+		end
+		
+		if me.x > self.move_to_position.x then
+			msg.post(".", messages.WALK, { direction = -1 })
+		else
+			msg.post(".", messages.WALK, { direction = 1 })
+		end
+	end
+end
+
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif message_id == messages.DYING then
+		self.dead = true
+	elseif message_id == messages.ACTIVE then
+		self.enabled = false
+	elseif message_id == messages.IDLE then
+		self.enabled = true
+		self.idle_timer = self.IDLE_INTERVAL
+		msg.post(".", messages.ANIMATE, { id = self.IDLE_ANIMATION, priority = 1, force = true })
+	end
+end

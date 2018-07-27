@@ -1,0 +1,50 @@
+local messages = require("hud.messages")
+
+local function add_heart(self, delay)
+	local heart_size = gui.get_size(self.heart_prototype)
+	local heart = gui.clone_tree(self.heart_prototype)
+	gui.set_parent(heart.heart_prototype, self.heart_container)
+	gui.set_position(heart.heart_prototype, vmath.vector3(#self.hearts * heart_size.x, 0, 0))
+	gui.set_enabled(heart.heart_prototype, true)
+	table.insert(self.hearts, heart)
+	
+	gui.set_scale(heart.heart_prototype, vmath.vector4(0, 0, 1.0, 0))
+	gui.animate(heart.heart_prototype, gui.PROP_SCALE, vmath.vector4(1.0, 1.0, 1.0, 0), gui.EASING_INOUTCIRC, 0.8, delay or 0, nil, gui.PLAYBACK_ONCE_FORWARD)
+end
+
+local function remove_heart(self)
+	local heart = table.remove(self.hearts)
+	gui.animate(heart.heart_prototype, gui.PROP_SCALE, vmath.vector4(0, 0, 1.0, 0), gui.EASING_INOUTCIRC, 0.8, 0, function(self, url, property)
+		gui.delete_node(heart.heart_prototype)
+	end, gui.PLAYBACK_ONCE_FORWARD)
+end
+
+function init(self)
+	self.heart_prototype = gui.get_node("heart_prototype")
+	self.heart_container = gui.get_node("heart_container")
+	self.hearts = {}
+	gui.set_enabled(self.heart_prototype, false)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.INIT then
+		for i = 1,message.health do
+			add_heart(self, (i - 1) * 0.05)
+		end
+	elseif message_id == messages.UPDATE then
+		local health_diff = message.health - #self.hearts
+		if health_diff > 0 then
+			while health_diff > 0 do
+				health_diff = health_diff - 1
+				add_heart(self)
+			end
+		elseif health_diff < 0 then
+			health_diff = math.abs(health_diff)
+			while health_diff > 0 do
+				health_diff = health_diff - 1
+				remove_heart(self)
+			end
+		end
+	end
+end
+

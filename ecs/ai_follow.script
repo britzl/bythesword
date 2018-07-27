@@ -1,0 +1,57 @@
+go.property("RANGE", 100)
+go.property("TARGET", hash("/warrior/warrior"))
+
+local messages = require("ecs.messages")
+local distance = require("lib.distance")
+
+
+function init(self)
+	self.enabled = true
+	self.active = false
+	self.dead = false
+	self.initial_position = go.get_position()
+end
+
+
+function update(self, dt)
+	if not self.enabled or self.dead or self.target_dead then
+		return
+	end
+	
+	local ok, target = pcall(go.get_world_position, self.TARGET)
+	if not ok then
+		print("ERROR, ai_follow_script")
+		self.target_dead = true
+		return
+	end
+	
+	local me = go.get_world_position()
+	local inactive = not self.active
+	self.active = self.active or distance.in_range(target, me, self.RANGE)
+	if self.active then
+		if inactive then
+			msg.post(".", messages.ACTIVE)
+		end
+		if me.x > target.x then
+			msg.post(".", messages.RUN, { direction = -1 })
+		else
+			msg.post(".", messages.RUN, { direction = 1 })
+		end
+	end
+end
+
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ENABLE_SCRIPT then
+		self.enabled = true
+	elseif message_id == messages.DISABLE_SCRIPT then
+		self.enabled = false
+	elseif not self.enabled then
+		return
+	elseif message_id == messages.DYING then
+		self.dead = true
+	elseif message_id == messages.TARGET_DIED then
+		self.target_dead = true
+	end
+end

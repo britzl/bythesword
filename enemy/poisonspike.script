@@ -1,0 +1,30 @@
+go.property("DELAY", 0)
+go.property("ANIMATION", hash("poisonspike"))
+
+local messages = require("ecs.messages")
+
+local ENABLE = hash("enable")
+local DISABLE = hash("disable")
+
+function update(self, dt)
+	if self.waiting_for_animation then
+		return
+	end
+	
+	self.DELAY = self.DELAY - dt
+	if self.DELAY > 0 then
+		msg.post("#sprite", DISABLE)
+		msg.post("#collisionobject", DISABLE)
+	else
+		self.waiting_for_animation = true
+		msg.post("#sprite", ENABLE)
+		msg.post("#collisionobject", ENABLE)
+		msg.post("#sprite", "play_animation", { id = self.ANIMATION })
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == messages.ANIMATION_DONE then
+		go.delete()
+	end
+end

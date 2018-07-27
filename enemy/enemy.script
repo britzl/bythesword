@@ -1,0 +1,12 @@
+--go.property("SCALE", 2)
+
+local messages = require("ecs.messages")
+
+function init(self)
+	msg.post("game:/game", messages.REGISTER)
+	--go.set_scale(self.SCALE)
+end
+
+function final(self)
+	msg.post("game:/game", messages.UNREGISTER)
+end
