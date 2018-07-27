@@ -17,6 +17,8 @@ embedded_components {
   id: "gameproxy"
   type: "collectionproxy"
   data: "collection: \"/game/game.collection\"\n"
+  "exclude: false\n"
+  ""
   position {
     x: 0.0
     y: 0.0

@@ -13,7 +13,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 instances {
   id: "level"
@@ -72,7 +76,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 instances {
   id: "bat"
@@ -88,7 +96,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat1"
@@ -104,7 +116,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat2"
@@ -120,7 +136,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat3"
@@ -136,7 +156,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat4"
@@ -152,7 +176,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat5"
@@ -168,7 +196,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat6"
@@ -184,7 +216,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat7"
@@ -200,7 +236,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "bat8"
@@ -216,7 +256,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "block"
@@ -232,7 +276,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 instances {
   id: "goblin"
@@ -248,7 +296,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin1"
@@ -264,7 +316,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin10"
@@ -280,7 +336,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin11"
@@ -296,7 +356,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin12"
@@ -312,7 +376,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin13"
@@ -328,7 +396,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin14"
@@ -344,7 +416,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin15"
@@ -360,7 +436,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin16"
@@ -376,7 +456,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin17"
@@ -392,7 +476,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin18"
@@ -408,7 +496,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin2"
@@ -424,7 +516,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin3"
@@ -440,7 +536,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin4"
@@ -456,7 +556,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin5"
@@ -472,7 +576,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin6"
@@ -488,7 +596,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin7"
@@ -504,7 +616,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin8"
@@ -520,7 +636,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "goblin9"
@@ -536,7 +656,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "jelly"
@@ -552,7 +676,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 3.0
+  scale3 {
+    x: 3.0
+    y: 3.0
+    z: 3.0
+  }
 }
 instances {
   id: "jelly1"
@@ -568,7 +696,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 3.0
+  scale3 {
+    x: 3.0
+    y: 3.0
+    z: 3.0
+  }
 }
 instances {
   id: "jelly2"
@@ -584,7 +716,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 3.0
+  scale3 {
+    x: 3.0
+    y: 3.0
+    z: 3.0
+  }
 }
 instances {
   id: "necromancer"
@@ -600,7 +736,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer1"
@@ -616,7 +756,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer2"
@@ -632,7 +776,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer3"
@@ -648,7 +796,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer4"
@@ -664,7 +816,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer5"
@@ -680,7 +836,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer6"
@@ -696,7 +856,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer7"
@@ -712,7 +876,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer8"
@@ -728,7 +896,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "necromancer9"
@@ -744,7 +916,11 @@ instances {
     z: 0.0
     w: 1.0
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 instances {
   id: "player"
@@ -773,12 +949,31 @@ instances {
       type: PROPERTY_TYPE_NUMBER
     }
   }
-  scale: 2.0
+  scale3 {
+    x: 2.0
+    y: 2.0
+    z: 2.0
+  }
 }
 scale_along_z: 0
 embedded_instances {
   id: "hud"
-  data: "components {\n  id: \"gui\"\n  component: \"/hud/hud.gui\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  data: "components {\n"
+  "  id: \"gui\"\n"
+  "  component: \"/hud/hud.gui\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
   position {
     x: 334.98145
     y: 465.92874
@@ -790,11 +985,105 @@ embedded_instances {
     z: 0.0
     w: 1.0
   }
-  scale: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
 embedded_instances {
   id: "factories"
-  data: "embedded_components {\n  id: \"jellyfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/enemy/jelly.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"magefactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/mage.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"magicfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/projectile/magic.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"thieffactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/thief.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\nembedded_components {\n  id: \"warriorfactory\"\n  type: \"factory\"\n  data: \"prototype: \\\"/player/warrior.go\\\"\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  data: "embedded_components {\n"
+  "  id: \"jellyfactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/enemy/jelly.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"magefactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/player/mage.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"magicfactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/projectile/magic.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"thieffactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/player/thief.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"warriorfactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/player/warrior.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
   position {
     x: 0.0
     y: 0.0
@@ -806,5 +1095,9 @@ embedded_instances {
     z: 0.0
     w: 1.0
   }
-  scale: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
 }
