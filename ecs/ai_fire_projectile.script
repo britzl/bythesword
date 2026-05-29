@@ -32,7 +32,7 @@ function update(self, dt)
 		
 		local me = go.get_world_position()
 		if distance.in_range(target, me, self.DETECT_RANGE) then
-			physics.ray_cast(me, target, self.ray_cast_group)
+			physics.raycast_async(me, target, self.ray_cast_group)
 			self.timer = 0
 		end
 	end

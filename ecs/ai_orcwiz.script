@@ -59,7 +59,7 @@ function update(self, dt)
 			self.target_position = target
 			local me = go.get_world_position()
 			if distance.in_range(target, me, self.CAST_RANGE) then
-				physics.ray_cast(me, target, self.ray_cast_group, RAYCAST_ID_CAST)
+				physics.raycast_async(me, target, self.ray_cast_group, RAYCAST_ID_CAST)
 			end
 		end
 		
@@ -74,7 +74,7 @@ function update(self, dt)
 
 			local me = go.get_world_position()
 			if distance.in_range(target, me, self.DETECT_RANGE) then
-				physics.ray_cast(me, target, self.ray_cast_group, RAYCAST_ID_DETECT)
+				physics.raycast_async(me, target, self.ray_cast_group, RAYCAST_ID_DETECT)
 			end
 		end
 	elseif self.state == STATE_SPIN then
